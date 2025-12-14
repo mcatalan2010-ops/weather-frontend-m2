@@ -28,3 +28,15 @@ inks.forEach(function(link){
     }
     });
 ```
+## Proyecto de portafolio modulo 3
+Se continua trabajando en el proyecto de desarrollar versión (MVP) del frontend de una aplicación de clima, aplicando HTML5 semántico, Bootstrap para estilos y diseño responsivo, y JavaScript básico para la interacción. El trabajo se versiona en Git/GitHub e incluye un README descriptivo.
+Para el modulo 3 se complementa el uso de metodologia BEM uso de SASS entre otros parametros solicitados.
+
+## Metodologia de estilos
+en su mayoria se utiliza la metodologia BEM que era parte de la solicitado
+
+## SASS y Modulorizacion
+Se crea estructura basica de SASS con el sistema de 7*1
+Se utilizan variables, anidamientos, mixins.
+Se agrega paleta de colores
+
