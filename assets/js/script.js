@@ -20,6 +20,7 @@ cardLinks.forEach(function (link){
     link.addEventListener('click', function() {
         window.location.href = './detalle.html';
     });
+});
 =======
 // manejo del DOM con js 
 //queryselectorall selecciona todos los elementos. En este caso todos los que tienen clase nav-link
@@ -34,7 +35,6 @@ links.forEach(function(link){
     }
     });
 
-
     // manejo de evento
     var cardLinks = document.querySelectorAll('.card-link');
 //console.log(cardLinks);
@@ -43,3 +43,4 @@ cardLinks.forEach(function (link){
         window.location.href = './detalle.html';
     });
 });
+
