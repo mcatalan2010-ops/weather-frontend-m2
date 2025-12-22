@@ -42,5 +42,4 @@ cardLinks.forEach(function (link){
     link.addEventListener('click', function() {
         window.location.href = './detalle.html';
     });
->>>>>>> def8bbc5a39fdf85aaf42592b9727a292b0238a9
 });
