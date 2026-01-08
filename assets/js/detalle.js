@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-// manejo del DOM con js 
 //queryselectorall selecciona todos los elementos. En este caso todos los que tienen clase nav-link
 var links = document.querySelectorAll('.nav-link');
 console.log(links);
@@ -12,39 +10,7 @@ links.forEach(function(link){
     }
     });
 
-
-    // manejo de evento
-    var cardLinks = document.querySelectorAll('.card-link');
-//console.log(cardLinks);
-cardLinks.forEach(function (link){
-    link.addEventListener('click', function() {
-        window.location.href = './detalle.html';
-    });
-});
-======
-// manejo del DOM con js 
-//queryselectorall selecciona todos los elementos. En este caso todos los que tienen clase nav-link
-var links = document.querySelectorAll('.nav-link');
-console.log(links);
-
-links.forEach(function(link){
-    if(link.href === window.location.href){
-        link.classList.add('active');
-    } else {
-        link.classList.remove('active');
-    }
-    });
-
-    // manejo de evento
-    var cardLinks = document.querySelectorAll('.card-link');
-//console.log(cardLinks);
-cardLinks.forEach(function (link){
-    link.addEventListener('click', function() {
-        window.location.href = './detalle.html';
-    });
-});
-
-// array de lugares: contendra el listado de cuidades (minimo 5)
+    // array de lugares: contendra el listado de cuidades (minimo 5)
 /* id, nombre del lugar, temperatura actual, estado actual, pronostico semanal (array de objetos) */
 
 const lugares = [
@@ -358,31 +324,10 @@ const ICONOS = {
     'Parcialmente Nublado': 'bi-cloud-sun',
 };   
 
+//1. Obtener ID enviado por parametro de l url
+cont urlParams = new URLSearchParams(window.location.search);
 
-// mostar lugares en el index
-const lugaresContainer = document.getElementById('lugares')
+// Extraer ID de los parametros
+const locationID = urlParams.get('id');
 
-const mostrarLugares = () => {
-    lugares.forEach((lugar)=> {
-    const tarjeta = `
-    <div class="col">
-    <div class="card text-center">
-      <i class="bi ${ICONOS[lugar.estadoActual]}"></i>
-      <div class="card-body">
-        <h5 class="card-title">${lugar.nombre}</h5>
-        <p class="card-text">${lugar.tempActual}</p>
-        <p class="card-text">${lugar.estadoActual}</p>
-      </div>
-      <div class="card-body">
-        <a class="card-link" href="./detalle.html?id=${lugar.id}">Ver Detalle</a>
-      </div>
-    </div>
-  </div>
-    `;
-
-lugaresContainer.innerHTML += tarjeta;
-});
-};
-
-
-/* hacer sumas de temperaturas, promedios minimos y maximos */
+//2. filtrar lugar del array a partir de la Id
