@@ -88,7 +88,39 @@ const formatFloatNumber = (num) => {
     return num.toLocaleString('es-CL')
 }
 
+const definirEstadoPredominante = (conteoEstados) => {
+  let estadoPredominante;
 
+   if (
+    conteoEstados.Soleado > conteoEstados.Nublado &&
+    conteoEstados.Soleado > conteoEstados.Lluvia &&
+    conteoEstados.Soleado > conteoEstados['Parcialmente nublado']
+  ) {
+    estadoPredominante = 'Soleado';
+  } else if (
+    conteoEstados.Nublado > conteoEstados.Soleado &&
+    conteoEstados.Nublado > conteoEstados.Lluvia &&
+    conteoEstados.Nublado > conteoEstados['Parcialmente nublado']
+  ) {
+    estadoPredominante = 'Nublado';
+  } else if (
+    conteoEstados.Lluvia > conteoEstados.Soleado &&
+    conteoEstados.Lluvia > conteoEstados.Nublado &&
+    conteoEstados.Lluvia > conteoEstados['Parcialmente nublado']
+  ) {
+    estadoPredominante = 'Lluvia';
+  } else if (
+    conteoEstados['Parcialmente nublado'] > conteoEstados.Soleado &&
+    conteoEstados['Parcialmente nublado'] > conteoEstados.Nublado &&
+    conteoEstados['Parcialmente nublado'] > conteoEstados.Lluvioso
+  ) {
+    estadoPredominante = 'Parcialmente Nublado';
+  } else {
+    estadoPredominante = 'variado';
+  }
+
+  return estadoPredominante;
+};
 
 //5.2 funcion para calcular estadisticas, devolvera un objeto con los resultados
 const estadisticasPronostico = () => {
@@ -108,11 +140,26 @@ const sumaTemperaturasMaximas = temperaturasMaximas.reduce((acumulador, actual) 
 // promedio = sumaElementos / cantidadElementos
 const promedioSemanal = parseFloat((sumaTemperaturasMaximas/temperaturasMaximas.length).toFixed(2));
 
+// crear mensaje resumen de las estadisticas: cantidad de dias por tipo de clima, resumen textual (semana mayormente soleada, nublada, etc.)
+//5.2.4 calcular conteo de dias por estado del clima
+const estadosSemanal = ciudadActual.pronosticoSemanal.map((dia) => dia.estado);
+const estadosUnicos = [...new Set(estadosSemanal)];
+
+const conteoEstados = {};
+ 
+estadosUnicos.forEach((estado) => {
+    conteoEstados[estado] = ciudadActual.pronosticoSemanal.filter((dia) => dia.estado === estado).length;
+});
+
+//5.2.5 determinar estado predominante (el mas frecuente) de la semana
+const estadoPredominante = definirEstadoPredominante(conteoEstados);
 
 return { 
     minimaSemanal,
     maximaSemanal,
     promedioSemanal: formatFloatNumber(promedioSemanal),
+    conteoEstados,
+    estadoPredominante,
 };
 };
 
@@ -120,3 +167,28 @@ const estadisticas = estadisticasPronostico();
 minTempcontainer.textContent = estadisticas.minimaSemanal;
 maxTempConteiner.textContent = estadisticas.maximaSemanal;
 avTempContainer.textContent = estadisticas.promedioSemanal;
+
+console.log(estadisticas);
+
+//usar el conteo de estados de la funcion estadisticasPronostico
+//5.2.6 crear resumen textual
+const generarMensajeResumen = (estado, tempMax, tempMin) => {
+    return `Semana mayormente con clima ${estado}. La temperatura maxima para la semana ${tempMax} °C, y la temperatura minima para la semana de ${tempMin} °C.`;
+};
+
+const mensajeResumen = generarMensajeResumen(estadisticas.estadoPredominante, estadisticas.maximaSemanal, estadisticas.minimaSemanal);
+console.log(mensajeResumen);
+
+const containerMensajeResumen = document.getElementById('resumen');
+containerMensajeResumen.innerHTML = `<p class="text-muted">${mensajeResumen}</p>`;
+
+const encabezadosTablaEstadistica = document.getElementById(
+  'titulosEstadistica');
+
+const contenidoTablaEstadistica = document.getElementById('filaEstadistica');
+
+// Ocupar conteo de estados de la función estadisticaPronostico
+Object.entries(estadisticas.conteoEstados).forEach(([estado, contador]) => {
+  encabezadosTablaEstadistica.innerHTML += `<th scope="col">Días ${estado}</th>`;
+  contenidoTablaEstadistica.innerHTML += `<td>${contador}</td>`;
+});

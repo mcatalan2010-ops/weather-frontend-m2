@@ -63,7 +63,7 @@
   <thead>
     <tr>
       <th scope="col">Temperatura Minima</th>
-      <th scope="col">Temparatura Maxima</th>
+      <th scope="col">Temperatura Maxima</th>
       <th scope="col">Promedio Semanal</th>
       </tr>
   </thead>
@@ -79,9 +79,20 @@
 </table>
 
 <!-- TODO: mensaje de resumen -->
- <div class="border border-primary-info rounded p-4">
-  <p>RESUMEN DE DATOS SEMANALES</p>
+ <div class="border border-info rounded p-4" id="resumen">
  </div>
+ <table class="table">
+<thead>
+  <tr id="titulosEstadistica">
+    <!-- contenido se generara dinamicamente -->
+  </tr>
+</thead>
+<tbody>
+ <tr id="filaEstadistica">
+<!-- contenido se generara dinamicamente -->
+ </tr>
+</tbody>
+ </table>
   </section>
      
 </main>
