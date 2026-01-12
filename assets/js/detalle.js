@@ -74,5 +74,49 @@ ciudadActual.pronosticoSemanal.forEach((dia)=> {
     <li class="list-group-item">
     <i class="bi ${ICONOS[dia.estado]}"></i> ${dia.dia}: ${dia.max} °C </li>`;
     pronosticoContainer.innerHTML += content;
-
 } );
+
+//Mostar estadisticas de la semana
+//5. Obtener estadisticas semanales y resumir datos
+//5.1 Capturar elementos de la tabla (td -> table datacell)
+const minTempcontainer = document.getElementById('minTemp');
+const maxTempConteiner = document.getElementById('maxTemp');
+const avTempContainer = document.getElementById('avTemp');
+
+// funcion para formatear numeros decimales, que envez de puntos tenga coma
+const formatFloatNumber = (num) => {
+    return num.toLocaleString('es-CL')
+}
+
+
+
+//5.2 funcion para calcular estadisticas, devolvera un objeto con los resultados
+const estadisticasPronostico = () => {
+    //5.2.1 obtener temperatura minima semanal
+    const temperaturasMinimas = ciudadActual.pronosticoSemanal.map((dia) => dia.min);
+    //console.log(temperaturasMinimas);
+const minimaSemanal = Math.min(...temperaturasMinimas);
+console.log(minimaSemanal);
+
+//5.2.2 obtener temperatura maxima semanal
+const temperaturasMaximas = ciudadActual.pronosticoSemanal.map((dia) => dia.max);
+const maximaSemanal = Math.max(...temperaturasMaximas);
+
+//5.2.3 calcular promedio de temparaturas semanal
+const sumaTemperaturasMaximas = temperaturasMaximas.reduce((acumulador, actual) => acumulador + actual,0);
+
+// promedio = sumaElementos / cantidadElementos
+const promedioSemanal = parseFloat((sumaTemperaturasMaximas/temperaturasMaximas.length).toFixed(2));
+
+
+return { 
+    minimaSemanal,
+    maximaSemanal,
+    promedioSemanal: formatFloatNumber(promedioSemanal),
+};
+};
+
+const estadisticas = estadisticasPronostico();
+minTempcontainer.textContent = estadisticas.minimaSemanal;
+maxTempConteiner.textContent = estadisticas.maximaSemanal;
+avTempContainer.textContent = estadisticas.promedioSemanal;
