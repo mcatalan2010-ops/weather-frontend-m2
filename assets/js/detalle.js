@@ -65,3 +65,14 @@ lugarContainer.innerHTML += content;
 };
  
 mostrarLugar();
+
+// Mostrar seccion de pronostico semanal
+const pronosticoContainer = document.getElementById("pronosticoSemanal");
+
+ciudadActual.pronosticoSemanal.forEach((dia)=> {
+    const content = `
+    <li class="list-group-item">
+    <i class="bi ${ICONOS[dia.estado]}"></i> ${dia.dia}: ${dia.max} °C </li>`;
+    pronosticoContainer.innerHTML += content;
+
+} );
