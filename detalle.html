@@ -14,11 +14,8 @@
 <!-- bootstrap js -->
 <script  defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
-<!-- mi css -->
- <link rel="stylesheet" href="./assets/css/style.css">
-
  <!-- mi js -->
-  <script src="./assets/js/detalle.js"></script>
+  <script defer type="module" src="./assets/js/detalle.js"></script>
 
 </head>
 <body>
@@ -40,27 +37,12 @@
   </div>
 </nav>
 
-<main class="container">
+<main class="container my-4">
   <section class="row">
-    <div class="col col-lg-8">
+    <div class="col col-lg-8" id="lugar">
 <h1>MIRA EL TIEMPO EN:</h1>
 <!-- card horizontal start-->
-<div class="card mb-3">
-  <div class="row g-0">
-    <div class="col-lg-4 d-flex justify-content-center align-item-center">
-      <i class="bi bi-brightness-high" style="font-size: 100px;"></i>
-    </div>
-    <div class="col-lg-8">
-      <div class="card-body">
-        <h2 class="card-title">TEMUCO</h2>
-        <ul class="list-group list-group-flush">
-    <li class="list-group-item">SOLEADO</li>  
-  </ul>
-        <p class="card-text"><small class="text-body-secondary">Ultima actualizacion hace 5 minutos</small></p>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- el contenido se mostrara dinamicamente -->
 <!-- card horizontal end -->
      </div>
 <div class="col col-lg-4">

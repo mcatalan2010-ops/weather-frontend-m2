@@ -1,31 +1,7 @@
-<<<<<<< HEAD
-// manejo del DOM con js 
+ //manejo del DOM con js 
 //queryselectorall selecciona todos los elementos. En este caso todos los que tienen clase nav-link
 var links = document.querySelectorAll('.nav-link');
-console.log(links);
-
-links.forEach(function(link){
-    if(link.href === window.location.href){
-        link.classList.add('active');
-    } else {
-        link.classList.remove('active');
-    }
-    });
-
-
-    // manejo de evento
-    var cardLinks = document.querySelectorAll('.card-link');
-//console.log(cardLinks);
-cardLinks.forEach(function (link){
-    link.addEventListener('click', function() {
-        window.location.href = './detalle.html';
-    });
-});
-======
-// manejo del DOM con js 
-//queryselectorall selecciona todos los elementos. En este caso todos los que tienen clase nav-link
-var links = document.querySelectorAll('.nav-link');
-console.log(links);
+//console.log(links);
 
 links.forEach(function(link){
     if(link.href === window.location.href){
@@ -97,7 +73,7 @@ const lugares = [
             estado: 'Soleado',
            },
         ],
-        };
+        },
     {
         id: 2,
         nombre: 'ANGOL',
@@ -354,7 +330,7 @@ const lugares = [
 const ICONOS = {
     Soleado: 'bi-brightness-high',
     Nublado: 'bi-cloudy-fill',
-    Luvia: 'bi-cloud-rain-heavy',
+    Lluvia: 'bi-cloud-rain-heavy',
     'Parcialmente Nublado': 'bi-cloud-sun',
 };   
 
@@ -377,12 +353,11 @@ const mostrarLugares = () => {
         <a class="card-link" href="./detalle.html?id=${lugar.id}">Ver Detalle</a>
       </div>
     </div>
-  </div>
-    `;
+  </div>`;
 
 lugaresContainer.innerHTML += tarjeta;
 });
 };
 
-
+mostrarLugares()
 /* hacer sumas de temperaturas, promedios minimos y maximos */
