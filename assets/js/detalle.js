@@ -94,25 +94,25 @@ const definirEstadoPredominante = (conteoEstados) => {
    if (
     conteoEstados.Soleado > conteoEstados.Nublado &&
     conteoEstados.Soleado > conteoEstados.Lluvia &&
-    conteoEstados.Soleado > conteoEstados['Parcialmente nublado']
+    conteoEstados.Soleado > conteoEstados['Parcialmente Nublado']
   ) {
     estadoPredominante = 'Soleado';
   } else if (
     conteoEstados.Nublado > conteoEstados.Soleado &&
     conteoEstados.Nublado > conteoEstados.Lluvia &&
-    conteoEstados.Nublado > conteoEstados['Parcialmente nublado']
+    conteoEstados.Nublado > conteoEstados['Parcialmente Nublado']
   ) {
     estadoPredominante = 'Nublado';
   } else if (
     conteoEstados.Lluvia > conteoEstados.Soleado &&
     conteoEstados.Lluvia > conteoEstados.Nublado &&
-    conteoEstados.Lluvia > conteoEstados['Parcialmente nublado']
+    conteoEstados.Lluvia > conteoEstados['Parcialmente Nublado']
   ) {
     estadoPredominante = 'Lluvia';
   } else if (
-    conteoEstados['Parcialmente nublado'] > conteoEstados.Soleado &&
-    conteoEstados['Parcialmente nublado'] > conteoEstados.Nublado &&
-    conteoEstados['Parcialmente nublado'] > conteoEstados.Lluvioso
+    conteoEstados['Parcialmente Nublado'] > conteoEstados.Soleado &&
+    conteoEstados['Parcialmente Nublado'] > conteoEstados.Nublado &&
+    conteoEstados['Parcialmente Nublado'] > conteoEstados.Lluvioso
   ) {
     estadoPredominante = 'Parcialmente Nublado';
   } else {
@@ -143,12 +143,16 @@ const promedioSemanal = parseFloat((sumaTemperaturasMaximas/temperaturasMaximas.
 // crear mensaje resumen de las estadisticas: cantidad de dias por tipo de clima, resumen textual (semana mayormente soleada, nublada, etc.)
 //5.2.4 calcular conteo de dias por estado del clima
 const estadosSemanal = ciudadActual.pronosticoSemanal.map((dia) => dia.estado);
+
+// console.log(estadosSemanal);
+
 const estadosUnicos = [...new Set(estadosSemanal)];
 
 const conteoEstados = {};
  
 estadosUnicos.forEach((estado) => {
     conteoEstados[estado] = ciudadActual.pronosticoSemanal.filter((dia) => dia.estado === estado).length;
+// console.log(conteoEstados);
 });
 
 //5.2.5 determinar estado predominante (el mas frecuente) de la semana

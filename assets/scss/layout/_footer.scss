@@ -5,10 +5,10 @@
     width: 100%;
     min-width: 960px;
     margin: 0 auto;
-    
     .navigation {
         @include mixins.flex-layout-center;
     &__item{
         color: variables.$weather-dusk-blue;
-    }}
+    }
+}
 }
