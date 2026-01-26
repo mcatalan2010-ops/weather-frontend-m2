@@ -1,4 +1,5 @@
-import lugares from "./lugares.js";
+import lugaresForecastJson from '../../lugares-forecast-api.json' with {type: 'json'};
+//console.log(lugaresForecastJson);
 
 //queryselectorall selecciona todos los elementos. En este caso todos los que tienen clase nav-link
 var links = document.querySelectorAll('.nav-link');
@@ -12,31 +13,20 @@ links.forEach(function (link) {
     });
 
 
-// Para agregar iconos dinamicamente dependiendo del estado actual del clima    
-const ICONOS = {
-    Soleado: 'bi-brightness-high',
-    Nublado: 'bi-cloudy-fill',
-    Lluvia: 'bi-cloud-rain-heavy',
-    'Parcialmente Nublado': 'bi-cloud-sun',
-};   
-
 //1. Obtener ID enviado por parametro de la url
 const urlParams = new URLSearchParams(window.location.search);
 
 // Extraer ID de los parametros
-const locationId = urlParams.get('id');
+const locationName = urlParams.get('name');
 
 //2. filtrar lugar del array a partir de la Id
 const lugarEncontrado = () => {
-  const lugar = lugares.find((lugar) => {
-    console.log(`Buscando en array lugares el lugar con id: ${locationId}`);
-    return lugar.id == locationId;
-  });
-  return lugar;
+  return lugaresForecastJson.find((lugar) => lugar.location.name === locationName,);
 };
-
+  
 // Ejecutar función para buscar lugar a través de su ID
 const ciudadActual = lugarEncontrado();
+console.log(ciudadActual);
 
 //3. Capturar contenedor de informacion del lugar
 const lugarContainer = document.getElementById('lugar');
@@ -46,18 +36,18 @@ const mostrarLugar = () => {
     <div class="card mb-3">
   <div class="row g-0">
     <div class="col-lg-4 d-flex justify-content-center align-item-center">
-      <i class="bi ${ICONOS[ciudadActual.estadoActual]}" style="font-size: 90px"></i>
-    </div>
-    <div class="col-lg-8">
-      <div class="card-body">
-        <h2 class="card-title">${ciudadActual.nombre}</h2>
-        <ul class="list-group list-group-flush">
-    <li class="list-group-item">${ciudadActual.estadoActual}</li>  
-    <li class="list-group-item">TEMPERATURA: ${ciudadActual.tempActual}°C</li>
+     <img src="${ciudadActual.current.condition.icon}" class="card-image-top">
+   </div>
+   <div class="col-lg-8">
+    <div class="card-body">
+     <h2 class="card-title">${ciudadActual.location.name}</h2>
+     <ul class="list-group list-group-flush">
+   <li class="list-group-item">${ciudadActual.current.condition.text}</li>  
+   <li class="list-group-item">TEMPERATURA: ${ciudadActual.current.temp_c}°C</li>
   </ul>
-        <p class="card-text"><small class="text-body-secondary">Ultima actualizacion hace 5 minutos</small></p>
-      </div>
-    </div>
+      <p class="card-text"><small class="text-body-secondary">Ultima actualizacion hace 5 minutos</small></p>
+     </div>
+   </div>
   </div>
 </div>`;
 
@@ -69,10 +59,11 @@ mostrarLugar();
 // Mostrar seccion de pronostico semanal
 const pronosticoContainer = document.getElementById("pronosticoSemanal");
 
-ciudadActual.pronosticoSemanal.forEach((dia)=> {
+ciudadActual.forecast.forecastday.forEach((dia)=> {
+  console.log(dia);
     const content = `
     <li class="list-group-item">
-    <i class="bi ${ICONOS[dia.estado]}"></i> ${dia.dia}: ${dia.max} °C </li>`;
+    <img src="${dia.day.condition.icon}" class="card-image-top"> ${dia.day.condition.text}: ${dia.day.maxtemp_c} °C </li>`;
     pronosticoContainer.innerHTML += content;
 } );
 
@@ -125,13 +116,13 @@ const definirEstadoPredominante = (conteoEstados) => {
 //5.2 funcion para calcular estadisticas, devolvera un objeto con los resultados
 const estadisticasPronostico = () => {
     //5.2.1 obtener temperatura minima semanal
-    const temperaturasMinimas = ciudadActual.pronosticoSemanal.map((dia) => dia.min);
+    const temperaturasMinimas = ciudadActual.forecast.forecastday.map((dia) => dia.day.mintemp_c);
     //console.log(temperaturasMinimas);
 const minimaSemanal = Math.min(...temperaturasMinimas);
 console.log(minimaSemanal);
 
 //5.2.2 obtener temperatura maxima semanal
-const temperaturasMaximas = ciudadActual.pronosticoSemanal.map((dia) => dia.max);
+const temperaturasMaximas = ciudadActual.forecast.forecastday.map((dia) => dia.day.maxtemp_c);
 const maximaSemanal = Math.max(...temperaturasMaximas);
 
 //5.2.3 calcular promedio de temparaturas semanal
@@ -140,19 +131,15 @@ const sumaTemperaturasMaximas = temperaturasMaximas.reduce((acumulador, actual) 
 // promedio = sumaElementos / cantidadElementos
 const promedioSemanal = parseFloat((sumaTemperaturasMaximas/temperaturasMaximas.length).toFixed(2));
 
-// crear mensaje resumen de las estadisticas: cantidad de dias por tipo de clima, resumen textual (semana mayormente soleada, nublada, etc.)
 //5.2.4 calcular conteo de dias por estado del clima
-const estadosSemanal = ciudadActual.pronosticoSemanal.map((dia) => dia.estado);
-
-// console.log(estadosSemanal);
+const estadosSemanal = ciudadActual.forecast.forecastday.map((dia) => dia.day.condition.text);
 
 const estadosUnicos = [...new Set(estadosSemanal)];
 
 const conteoEstados = {};
  
 estadosUnicos.forEach((estado) => {
-    conteoEstados[estado] = ciudadActual.pronosticoSemanal.filter((dia) => dia.estado === estado).length;
-// console.log(conteoEstados);
+    conteoEstados[estado] = ciudadActual.forecast.forecastday.filter((dia) => dia.day.condition.text === estado).length;
 });
 
 //5.2.5 determinar estado predominante (el mas frecuente) de la semana
