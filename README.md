@@ -63,3 +63,51 @@ Se agrega paleta de colores
 - [x] Definir al menos dos funciones:
   - [x] Una función para buscar y obtener el objeto lugar a partir de un id o nombre.
   - [x] Una función para calcular estadísticas a partir del pronosticoSemanal de un lugar y devolver un objeto con los resultados.
+
+ # Proyecto de portafolio - Módulo 5
+Reestructurar la lógica de la App de Clima utilizando Programación Orientada a Objetos (POO) y funcionalidades modernas de JavaScript ES6+, e implementar el consumo de una API de clima (http://api.weatherapi.com) mediante programación asíncrona (fetch, promesas, async/await).
+En esta iteración, el foco está en cómo está organizado el código JavaScript (clases, módulos lógicos, funciones reutilizables) y en la integración con una API externa para obtener datos reales o simulados de clima para tus lugares. 
+
+## Requisitos funcionales mínimos
+•   Home: Mostrar un listado de ≥ 5 lugares con clima actual (temperatura y estado) obtenido desde la API o combinando datos locales + API.
+•   Detalle de lugar: 
+    o  Mostrar el pronóstico de varios días (lista o cards) obtenido desde la API (o simulado a partir de la respuesta). 
+    o  Mantener la sección “Estadísticas de la semana”:
+             Temperatura mínima, máxima y promedio.
+             Cantidad de días de al menos 2 tipos de clima (ej.: soleado / lluvia).
+    o  Mostrar una sección “Alertas de clima” con al menos 1 regla simple, por ejemplo:
+             Si el promedio de la semana > X °C → “Alerta de calor”.
+             Si hay ≥ N días de lluvia → “Semana lluviosa”.
+
+
+## Requisitos técnicos POO y ES6+
+
+### Modelado de datos
+- [x] Implementar al menos una clase principal, por ejemplo:
+    'async fetchWeather(lugares) {
+      try {
+          const promises = lugares.map(async (lugar) => {
+            const response = await fetch(`${this.#url}&q=${lugar}`);
+            return await response.json();
+          });'
+- [x] Se pueden definir clases adicionales si tiene sentido (ej.: LugarClima, ApiClient).Por ejemplo:
+    'async fetchWeatherByName(lugar) {
+        try {
+          const response = await fetch(`${this.#urlForecast}&q=${lugar}`);
+          if (!response.ok) {
+            throw new Error('No se pudo obtener el clima de la ciudad');
+         }'
+- [x] Utilizar ES6+ en el código: let y const en lugar de var. Arrow functions donde sean apropiadas. Parámetros por defecto en funciones cuando tenga sentido. Template literals para construir cadenas (por ejemplo, fragmentos de HTML o mensajes).
+- [x] 
+
+### Programación asíncrona y consumo de API
+- [x] Utilizar Fetch API (o XHR) para obtener datos de clima desde una API externa. Se utilizo la http://api.weatherapi.com
+- [x] Manejar la respuesta asíncrona mediante: Promesas (then/catch) y/o async/await (recomendado).
+- [x] Procesar la respuesta JSON para: Mapear los datos al formato interno de la app (arreglos/objetos). Y Volver a usar la lógica de estadísticas del Módulo 4.
+- [x] Manejar al menos un caso de error simple: Mostrar un mensaje en la interfaz si la API no responde o si hay un problema al cargar los datos.
+
+### DOM y actualización de la interfaz
+- [x] Utilizar el DOM para: Renderizar dinámicamente el listado de lugares en Home, en base a los datos obtenidos de la API. Renderizar el pronóstico y las estadísticas en la vista de detalle. Mostrar/ocultar mensajes de “Cargando…” o “Error al cargar los datos”. 
+
+
+
