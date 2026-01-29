@@ -21,81 +21,95 @@
 <body>
    
 <!-- barra de navegacion -->
- <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container">
-    <a class="navbar-brand" href="./index.html">El Tiempo</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <!-- ms-auto para desplazar link a la derecha -->
-             <div class="navbar-nav ms-auto">
-        <a class="nav-link active" aria-current="page" href="./index.html">Inicio</a>
-        <a class="nav-link" href="./detalle.html">Detalle</a>
-              </div>
-    </div>
-  </div>
-</nav>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container">
+        <a class="navbar-brand" href="./index.html">El Tiempo</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="./index.html"
+                >Inicio</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./detalle.html">Detalle</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-<main class="container my-4">
-  <section class="row">
-    <div class="col col-lg-8" id="lugar">
-<h1>MIRA EL TIEMPO EN:</h1>
-<!-- card horizontal start-->
-<!-- el contenido se mostrara dinamicamente -->
-<!-- card horizontal end -->
-     </div>
-<div class="col col-lg-4">
-  <h3>Pronostico Semanal</h3>
-  <!-- card pronostico -->
-   <div class="card my-4">
-  <ul class="list-group list-group-flush" id="pronosticoSemanal">
-  <!-- pronostico de la ciudad se mostrara dinamicamente -->  
-     </ul>
-</div>
-</div>
+    <main class="container my-4">
+      <section class="row">
+        <div class="col col-lg-8" id="lugar">
+          <h1>El tiempo en:</h1>
+          <!-- Contenido del lugar se mostrará dinámicamente -->
+        </div>
 
-  </section>
-  <section class="mt-5">
-    <h3>ESTADISTICAS DE LA SEMANA</h3>
-    <!-- temperatura minima, maxima y promedio de la semana -->
-     <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Temperatura Minima</th>
-      <th scope="col">Temperatura Maxima</th>
-      <th scope="col">Promedio Semanal</th>
-      </tr>
-  </thead>
-  <tbody>
-    <tr>
-     <!-- temperaturas de la ciudad se actualizaran dinamicamente -->
-      <td id="minTemp">7 °C</td>
-      <td id="maxTemp">23 °C</td>
-      <td id="avTemp">20 °C</td>
-    </tr>
-        
-  </tbody>
-</table>
+        <div class="col col-lg-4">
+          <h3>Pronóstico Semanal: 7 dias</h3>
 
-<!-- TODO: mensaje de resumen -->
- <div class="border border-info rounded p-4" id="resumen">
- </div>
- <table class="table">
-<thead>
-  <tr id="titulosEstadistica">
-    <!-- contenido se generara dinamicamente -->
-  </tr>
-</thead>
-<tbody>
- <tr id="filaEstadistica">
-<!-- contenido se generara dinamicamente -->
- </tr>
-</tbody>
- </table>
-  </section>
-     
-</main>
+          <!-- Card pronóstico -->
+          <div class="card">
+            <ul class="list-group list-group-flush" id="pronosticoSemanal">
+              <!-- Pronóstico de la ciudad se mostrará dinámicamente -->
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="mt-5">
+        <h3>Estadísticas de la semana</h3>
+        <!-- Temperatura mínima, máxima y promedio de la semana -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Temperatura Mínima</th>
+              <th scope="col">Temperatura Máxima</th>
+              <th scope="col">Promedio Semanal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <!-- Temperaturas de la ciudad se actualizarán dinámicamente -->
+              <td id="minTemp">14°C</td>
+              <td id="maxTemp">32°C</td>
+              <td id="avTemp">28°C</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- TODO: Mensaje de resumen -->
+        <div class="border border-info rounded p-4" id="resumen"></div>
+
+        <table class="table">
+          <thead>
+            <tr id="titulosEstadisticas">
+              <!-- contenido se generará dinámicamente -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="filaEstadistica">
+              <!-- contenido se generará dinámicamente -->
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+ 
+
+
+
 <!-- footer --><!-- footer -->
 <footer class="container py-3 my-4"> 
   <ul class="nav justify-content-center border-bottom pb-3 mb-3"> 
