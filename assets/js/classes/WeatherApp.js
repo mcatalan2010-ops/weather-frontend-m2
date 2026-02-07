@@ -139,39 +139,27 @@ export default class WeatherApp {
     }
   }
 
-  definirEstadoPredominante = (conteoEstados) => {
-    let estadoPredominante;
+definirEstadoPredominante = (conteoEstados) => {
+let estadoPredominante;
+// Definimos una variable para almacenar el maximo de dias (y poder comparar los otros estados)
+let maxDias = 0;
 
-    if (
-      conteoEstados.Soleado > conteoEstados.Nublado &&
-      conteoEstados.Soleado > conteoEstados.Lluvioso &&
-      conteoEstados.Soleado > conteoEstados['Parcialmente nublado']
-    ) {
-      estadoPredominante = 'Soleado';
-    } else if (
-      conteoEstados.Nublado > conteoEstados.Soleado &&
-      conteoEstados.Nublado > conteoEstados.Lluvioso &&
-      conteoEstados.Nublado > conteoEstados['Parcialmente nublado']
-    ) {
-      estadoPredominante = 'Nublado';
-    } else if (
-      conteoEstados.Lluvioso > conteoEstados.Soleado &&
-      conteoEstados.Lluvioso > conteoEstados.Nublado &&
-      conteoEstados.Lluvioso > conteoEstados['Parcialmente nublado']
-    ) {
-      estadoPredominante = 'Lluvioso';
-    } else if (
-      conteoEstados['Parcialmente nublado'] > conteoEstados.Soleado &&
-      conteoEstados['Parcialmente nublado'] > conteoEstados.Nublado &&
-      conteoEstados['Parcialmente nublado'] > conteoEstados.Lluvioso
-    ) {
-      estadoPredominante = 'Parcialmente Nublado';
-    } else {
-      estadoPredominante = 'variado';
-    }
+// Recorremos el objeto de conteoEstados, devuelve un array de pares clave-valor
+Object.entries(conteoEstados).forEach(([estado, dias]) => {
+console.log(`Estado: ${estado}, Dias: ${dias}`);
+// Si el numero de dias es mayor que 'maximo', actualizamos el maximo y el estado predominante
+if (dias > maxDias) {
+maxDias = dias;
+estadoPredominante = estado;
+} else if (dias === maxDias) {
+// Si hay empate, el estado predominante es 'variado'
+estadoPredominante = 'variado';
+}
+});
 
-    return estadoPredominante;
-  };
+return estadoPredominante;
+};  
+
 
   estadisticasPronostico = () => {
     // 5.2.1 Obtener temperatura mínima semanal
